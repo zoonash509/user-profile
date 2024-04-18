@@ -238,7 +238,7 @@ if(searchFilters?.fullName=='' && searchFilters?.email=='' && searchFilters?.gen
        <TablePagination
         rowsPerPageOptions={[5, 10, 15, 20]}
         component="div"
-        count={user_data ? user_data?.info?.results : -1}
+        count={userData ? userData?.length : -1}
         rowsPerPage={pageSize}
         page={pageNumber}
         onPageChange={handleChangePage}
