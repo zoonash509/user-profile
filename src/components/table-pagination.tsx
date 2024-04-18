@@ -13,16 +13,16 @@ export default function UserTable() {
   const theme = useTheme();
   const { searchFilters, setSearchFilters } = useContext(UserContext);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const { data: user_data } = UseQuery_GetAllUsers();
-  const [userData, setUserData]= useState<IUser[]>(user_data?.results)
-  useEffect(()=>{
-    if(user_data){
+  const [userData, setUserData] = useState<IUser[]>(user_data?.results)
+  useEffect(() => {
+    if (user_data) {
       setUserData(user_data?.results)
     }
-  },[user_data])
+  }, [user_data])
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPageNumber(newPage);
@@ -35,18 +35,18 @@ export default function UserTable() {
     setPageNumber(0);
   };
 
-const handleFilter = () => {
+  const handleFilter = () => {
     if (!userData) return;
 
-    let filteredResults = user_data.results;
-if(searchFilters?.fullName==='' && searchFilters?.email==='' && searchFilters?.gender==='' && searchFilters.phone==='' && searchFilters.cell===''){
-  setUserData(user_data.results)
-}
+    let filteredResults = user_data?.results;
+    if (searchFilters?.fullName === '' && searchFilters?.email === '' && searchFilters?.gender === '' && searchFilters.phone === '' && searchFilters.cell === '') {
+      setUserData(user_data.results)
+    }
     if (searchFilters?.fullName) {
       const fullNameSearch = searchFilters.fullName.toLowerCase();
       filteredResults = filteredResults.filter(
-        (user:any) =>
-        user.name.title.toLowerCase().includes(fullNameSearch) ||
+        (user: any) =>
+          user.name.title.toLowerCase().includes(fullNameSearch) ||
           user.name.first.toLowerCase().includes(fullNameSearch) ||
           user.name.last.toLowerCase().includes(fullNameSearch)
       );
@@ -60,18 +60,18 @@ if(searchFilters?.fullName==='' && searchFilters?.email==='' && searchFilters?.g
 
     if (searchFilters.email !== undefined && searchFilters.email !== '') {
       filteredResults = filteredResults.filter(
-        (user:any)=> user.email.toLowerCase().includes(searchFilters.email!.toLowerCase())
+        (user: any) => user.email.toLowerCase().includes(searchFilters.email!.toLowerCase())
       );
     }
 
     if (searchFilters.phone !== undefined && searchFilters.phone !== '') {
       filteredResults = filteredResults.filter(
-        (user:any) => user.phone.toLowerCase().includes(searchFilters.phone!.toLowerCase())
+        (user: any) => user.phone.toLowerCase().includes(searchFilters.phone!.toLowerCase())
       );
     }
     if (searchFilters.cell !== undefined && searchFilters.cell !== '') {
       filteredResults = filteredResults.filter(
-        (user:any) => user.cell.toLowerCase().includes(searchFilters.cell!.toLowerCase())
+        (user: any) => user.cell.toLowerCase().includes(searchFilters.cell!.toLowerCase())
       );
     }
 
@@ -157,7 +157,7 @@ if(searchFilters?.fullName==='' && searchFilters?.email==='' && searchFilters?.g
                     onChange={(e) => {
                       setSearchFilters({
                         ...searchFilters,
-                        email:e.target.value,
+                        email: e.target.value,
                       });
                     }}
                     onBlur={() => {
@@ -179,7 +179,7 @@ if(searchFilters?.fullName==='' && searchFilters?.email==='' && searchFilters?.g
                     onChange={(e) => {
                       setSearchFilters({
                         ...searchFilters,
-                        phone:e.target.value,
+                        phone: e.target.value,
                       });
                     }}
                     onBlur={() => {
@@ -216,8 +216,8 @@ if(searchFilters?.fullName==='' && searchFilters?.email==='' && searchFilters?.g
         }
         tbodyChildren={userData?.map((row: IUser, index: number) => (
           <TableRow key={index} className="child-tr">
-            <TableCell><img src={row.picture.thumbnail} alt="thumbnail"/></TableCell>
-            <TableCell>{row.name.title+" "+row.name.first+" "+row.name.last}</TableCell>
+            <TableCell><img src={row.picture.thumbnail} alt="thumbnail" /></TableCell>
+            <TableCell>{row.name.title + " " + row.name.first + " " + row.name.last}</TableCell>
             <TableCell>{row.gender}</TableCell>
             <TableCell>{row.email}</TableCell>
             <TableCell>{row.phone}</TableCell>
@@ -225,14 +225,14 @@ if(searchFilters?.fullName==='' && searchFilters?.email==='' && searchFilters?.g
             <TableCell>
               <VisibilityIcon
                 onClick={() => {
-                  navigate('/user-profile/'+ row.name.first)
+                  navigate('/user-profile/' + row.name.first)
                 }}
               />
             </TableCell>
           </TableRow>
         ))}
       />
-       <TablePagination
+      <TablePagination
         rowsPerPageOptions={[5, 10, 15, 20]}
         component="div"
         count={userData ? userData?.length : -1}
