@@ -1,5 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { IUser } from "models/IUser";
+import { useQuery } from "react-query";
 import axios from "axios";
 import { QueryKeys } from "helpers/query-keys";
 

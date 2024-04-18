@@ -1,16 +1,12 @@
 import { Datatable } from "shared/components";
-import { Box, Button, Icon, Input, TablePagination, TableRow, useTheme } from "@mui/material";
+import { Input, TablePagination, TableRow, useTheme } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
-import { useQueryClient } from "react-query";
-import { QueryKeys } from "helpers/query-keys";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
-import { IUser, RandomUserData } from "models/IUser";
+import { IUser } from "models/IUser";
 import { UseQuery_GetAllUsers } from "services/user-service";
-import { Key, useContext, useEffect, useState } from "react";
-import { IFilter } from "models/IFilter";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { APP_ROUTES } from "helpers/links";
 import { UserContext } from "helpers/context";
 
 export default function UserTable() {
@@ -43,13 +39,14 @@ const handleFilter = () => {
     if (!userData) return;
 
     let filteredResults = user_data.results;
-if(searchFilters?.fullName=='' && searchFilters?.email=='' && searchFilters?.gender=='' && searchFilters.phone=='' && searchFilters.cell==''){
+if(searchFilters?.fullName==='' && searchFilters?.email==='' && searchFilters?.gender==='' && searchFilters.phone==='' && searchFilters.cell===''){
   setUserData(user_data.results)
 }
     if (searchFilters?.fullName) {
       const fullNameSearch = searchFilters.fullName.toLowerCase();
       filteredResults = filteredResults.filter(
         (user:any) =>
+        user.name.title.toLowerCase().includes(fullNameSearch) ||
           user.name.first.toLowerCase().includes(fullNameSearch) ||
           user.name.last.toLowerCase().includes(fullNameSearch)
       );
@@ -219,7 +216,7 @@ if(searchFilters?.fullName=='' && searchFilters?.email=='' && searchFilters?.gen
         }
         tbodyChildren={userData?.map((row: IUser, index: number) => (
           <TableRow key={index} className="child-tr">
-            <TableCell><img src={row.picture.thumbnail}/></TableCell>
+            <TableCell><img src={row.picture.thumbnail} alt="thumbnail"/></TableCell>
             <TableCell>{row.name.title+" "+row.name.first+" "+row.name.last}</TableCell>
             <TableCell>{row.gender}</TableCell>
             <TableCell>{row.email}</TableCell>

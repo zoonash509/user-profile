@@ -1,6 +1,5 @@
 import { IFilter } from "models/IFilter";
-import { useState, createContext, SetStateAction } from "react";
-import ReactDOM from "react-dom/client";
+import {  createContext } from "react";
 
 interface UserContextType {
     setSearchFilters: any

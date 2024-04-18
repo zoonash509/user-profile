@@ -3,7 +3,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Router from 'router';
 import { BrowserRouter } from 'react-router-dom';
-import { createContext, useState } from 'react';
+import {  useState } from 'react';
 import { IFilter } from 'models/IFilter';
 import { UserContext } from 'helpers/context';
 

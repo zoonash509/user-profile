@@ -10,9 +10,6 @@ import { ReactNode } from 'react'
 
 export declare type IDataTable = Partial<TableProps> & {
   theme: Theme
-  // columns: Array<any>
-  // rows: Array<Array<{ content: any; children: Array<{ content: any; children: Array<any> }> }>>
-  // rows: Array<{ content: Array<any>; children?: Array<{ content: Array<any>; children?: Array<Array<any>> }> }>
   variant?: 'basic' | null
   theadChildren?: ReactNode
   tbodyChildren?: ReactNode
